@@ -1,7 +1,8 @@
 package com.example.Task.Management.service;
 
-import com.example.Effective_Mobile_TZ.model.User;
-import com.example.Effective_Mobile_TZ.reposiroty.UserRepository;
+
+import com.example.Task.Management.model.User;
+import com.example.Task.Management.reposiroty.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,8 +21,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user=userRepository.findByEmail(username);
-        if(user == null){
+        User user = userRepository.findByEmail(username);
+        if (user == null) {
             throw new UsernameNotFoundException(username);
         }
         UserDetails build = org.springframework.security.core.userdetails.User

@@ -1,6 +1,7 @@
 package com.example.Task.Management.reposiroty;
 
-import com.example.Effective_Mobile_TZ.model.User;
+
+import com.example.Task.Management.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

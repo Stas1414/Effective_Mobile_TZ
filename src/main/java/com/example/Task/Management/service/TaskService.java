@@ -1,6 +1,7 @@
 package com.example.Task.Management.service;
 
-import com.example.Effective_Mobile_TZ.reposiroty.TaskRepository;
+
+import com.example.Task.Management.reposiroty.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
