@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tasks")
 @Setter
@@ -30,4 +32,6 @@ public class Task {
     @ManyToOne
     private User executor;
 
+    @OneToMany(mappedBy = "task")
+    private List<Comment> comments;
 }
