@@ -27,4 +27,8 @@ public class User {
 
     @OneToMany(mappedBy = "creator")
     private List<Task> createdTask;
+
+    @OneToMany(mappedBy = "author")
+    private List<Comment> comments;
+
 }
