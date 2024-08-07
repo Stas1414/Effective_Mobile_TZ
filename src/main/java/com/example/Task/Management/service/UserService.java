@@ -1,18 +1,13 @@
 package com.example.Task.Management.service;
 
-import com.example.Task.Management.reposiroty.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.example.Task.Management.dto.TaskDto;
+import com.example.Task.Management.model.Task;
 
-@Service
-public class UserService {
+import java.util.List;
 
-    private UserRepository userRepository;
-
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-
+public interface UserService {
+    List<TaskDto> getAllTasksById (Long user_id);
+    void changeStatus (Long task_id,String status);
+    List<TaskDto> getAllCreatedTasks();
+    List<TaskDto> getAllTasksForImplementation();
 }
