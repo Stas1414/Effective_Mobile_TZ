@@ -9,7 +9,7 @@ import java.util.List;
 public interface TaskService {
     Task createTask(Task task);
 
-    void updateTask(Long task_id, Long executor_id, Task task) throws AccessDeniedException;
+    void updateTask(Long taskId, Task task) throws AccessDeniedException;
 
-    void deleteTask(Long task_id) throws AccessDeniedException;
+    void deleteTask(Long taskId) throws AccessDeniedException;
 }
