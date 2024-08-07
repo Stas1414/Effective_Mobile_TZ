@@ -1,17 +1,15 @@
 package com.example.Task.Management.service;
 
+import com.example.Task.Management.dto.TaskDto;
+import com.example.Task.Management.model.Task;
 
-import com.example.Task.Management.reposiroty.TaskRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.nio.file.AccessDeniedException;
+import java.util.List;
 
-@Service
-public class TaskService {
+public interface TaskService {
+    Task createTask(Task task);
 
-    private TaskRepository taskRepository;
+    void updateTask(Long task_id, Long executor_id, Task task) throws AccessDeniedException;
 
-    @Autowired
-    public TaskService(TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
-    }
+    void deleteTask(Long task_id) throws AccessDeniedException;
 }

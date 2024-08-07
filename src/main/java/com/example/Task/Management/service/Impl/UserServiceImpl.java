@@ -32,14 +32,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<TaskDto> getAllTasksById(Long user_id) {
-        User user = userRepository.findById(user_id).orElseThrow(() -> new NullPointerException("The entity was not founded"));
+        User user = userRepository.findById(user_id).orElseThrow(() -> new NullPointerException("The user was not founded"));
         return mapToList(user.getTasksForImplementation());
+    }
+
+    @Override
+    public List<TaskDto> getCreatedTaskById(Long user_id) {
+        User user = userRepository.findById(user_id).orElseThrow(() -> new NullPointerException("The user was not founded"));
+        return mapToList(user.getCreatedTask());
     }
 
     @Override
     @Transactional
     public void changeStatus(Long task_id, String status) {
-        Task task = taskRepository.findById(task_id).orElseThrow(() -> new NullPointerException("The entity was not founded"));
+        Task task = taskRepository.findById(task_id).orElseThrow(() -> new NullPointerException("The user was not founded"));
         task.setStatus(status);
         taskRepository.save(task);
     }
