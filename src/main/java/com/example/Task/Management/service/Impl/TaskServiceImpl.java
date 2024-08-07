@@ -36,13 +36,14 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     @Transactional
-    public void updateTask(Long task_id, Long executor_id, Task task) throws AccessDeniedException {
+    public void updateTask(Long task_id, Task task) throws AccessDeniedException {
         User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         List<Task> tasksList = user.getCreatedTask();
         for (Task usersTask : tasksList) {
             if (task_id == usersTask.getId()) {
-                User executor = userRepository.findById(executor_id).orElseThrow(() -> new NullPointerException("Executor was not founded"));
-                usersTask.setExecutor(executor);
+                if (task.getExecutor() != null) {
+                    usersTask.setExecutor(task.getExecutor());
+                }
                 if (task.getHeading() != null) {
                     usersTask.setHeading(task.getHeading());
                 }
@@ -53,11 +54,10 @@ public class TaskServiceImpl implements TaskService {
                     usersTask.setPriority(task.getPriority());
                 }
                 taskRepository.save(usersTask);
-                userRepository.save(executor);
                 break;
             }
             else {
-                throw new AccessDeniedException("This task was not founded");
+                throw new AccessDeniedException("You cant update this task");
             }
         }
     }

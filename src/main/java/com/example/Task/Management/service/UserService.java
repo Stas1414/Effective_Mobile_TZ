@@ -6,7 +6,7 @@ import com.example.Task.Management.model.Task;
 import java.util.List;
 
 public interface UserService {
-    List<TaskDto> getAllTasksById(Long user_id);
+    List<TaskDto> getTasksForImplementationById(Long user_id);
 
     List<TaskDto> getCreatedTaskById(Long user_id);
 

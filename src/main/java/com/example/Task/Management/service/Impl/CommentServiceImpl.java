@@ -35,10 +35,10 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
-    public Comment createComment(Long task_id, String content) {
+    public Comment createComment(Long taskId, String content) {
         Comment comment = new Comment();
         comment.setContent(content);
-        Task task = taskRepository.findById(task_id).orElseThrow(() -> new NullPointerException("The task was not founded"));
+        Task task = taskRepository.findById(taskId).orElseThrow(() -> new NullPointerException("The task was not founded"));
         comment.setTask(task);
         User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         comment.setAuthor(user);
@@ -46,18 +46,18 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentDto> getAllCommentsFromTask(Long task_id) {
-        Task task = taskRepository.findById(task_id).orElseThrow(() -> new NullPointerException("The task was not founded"));
+    public List<CommentDto> getAllCommentsFromTask(Long taskId) {
+        Task task = taskRepository.findById(taskId).orElseThrow(() -> new NullPointerException("The task was not founded"));
         return mappingComment.mapToCommentDto(task.getComments());
     }
 
     @Override
     @Transactional
-    public void deleteComment(Long comment_id) throws AccessDeniedException {
+    public void deleteComment(Long commentId) throws AccessDeniedException {
         User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         for (Comment comment : user.getComments()) {
-            if (comment.getId() == comment_id) {
-                user.getComments().remove(comment_id);
+            if (comment.getId() == commentId) {
+                user.getComments().remove(commentId);
                 return;
             } else {
                 throw new AccessDeniedException("You cant delete this comment");
@@ -67,8 +67,17 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
-    public void updateComment(Long comment_id) {
-
+    public void updateComment(Long commentId, String content) throws AccessDeniedException {
+        User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        for (Comment comment : user.getComments()) {
+            if(comment.getId() == commentId) {
+                comment.setContent(content);
+                return;
+            }
+            else {
+                throw new AccessDeniedException("You cant update this task");
+            }
+        }
     }
 
 }

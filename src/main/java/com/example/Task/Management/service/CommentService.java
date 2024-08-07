@@ -7,11 +7,11 @@ import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 public interface CommentService {
-    Comment createComment(Long task_id, String content);
+    Comment createComment(Long taskId, String content);
 
-    List<CommentDto> getAllCommentsFromTask(Long task_id);
+    List<CommentDto> getAllCommentsFromTask(Long taskId);
 
-    void deleteComment(Long comment_id) throws AccessDeniedException;
+    void deleteComment(Long commentId) throws AccessDeniedException;
 
-    void updateComment(Long comment_id);
+    void updateComment(Long commentId, String content) throws AccessDeniedException;
 }
