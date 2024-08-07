@@ -17,14 +17,13 @@ public class MappingComment {
 
     private MappingUser mappingUser;
 
-    private MappingTask mappingTask;
+
 
 
     @Autowired
-    public MappingComment(CommentRepository commentRepository, MappingUser mappingUser, MappingTask mappingTask, MappingTask mappingTask1) {
+    public MappingComment(CommentRepository commentRepository, MappingUser mappingUser) {
         this.commentRepository = commentRepository;
         this.mappingUser = mappingUser;
-        this.mappingTask = mappingTask1;
     }
 
     public List<CommentDto> mapToCommentDto(List<Comment> comments) {
