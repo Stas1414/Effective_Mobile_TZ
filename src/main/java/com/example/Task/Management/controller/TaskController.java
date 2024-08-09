@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.nio.file.AccessDeniedException;
 
 @RestController
-@RequestMapping("/task")
+@RequestMapping("/api/tasks")
 public class TaskController {
 
     private TaskServiceImpl taskService;

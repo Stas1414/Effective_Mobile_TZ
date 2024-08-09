@@ -3,13 +3,15 @@ package com.example.Task.Management.controller;
 import com.example.Task.Management.dto.TaskDto;
 import com.example.Task.Management.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/users")
 public class UserController {
 
     private UserServiceImpl userService;
@@ -41,8 +43,13 @@ public class UserController {
 
     @PatchMapping("/{taskId}")
     public ResponseEntity<Void> changeStatus(@PathVariable("taskId") Long taskId, @RequestBody String status) {
-        userService.changeStatus(taskId, status);
-        return ResponseEntity.noContent().build();
+        try {
+            userService.changeStatus(taskId, status);
+            return ResponseEntity.noContent().build();
+        } catch (AccessDeniedException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+        }
+
     }
 
 }
