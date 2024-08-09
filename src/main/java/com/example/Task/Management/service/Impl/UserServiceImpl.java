@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -49,7 +50,7 @@ public class UserServiceImpl implements UserService {
         Task usersTask = taskRepository.findById(taskId).orElseThrow(() -> new NullPointerException("The task was not founded"));
         User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         for (Task task : user.getTasksForImplementation()) {
-            if (usersTask.getId() == task.getId()) {
+            if (Objects.equals(usersTask.getId(), task.getId())) {
                 task.setStatus(status);
                 taskRepository.save(task);
             } else {

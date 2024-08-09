@@ -39,9 +39,7 @@ public class MappingComment {
         List<Comment> comments = new ArrayList<>();
         for (CommentDto commentDto : commentDtoList) {
             Optional<Comment> comment = commentRepository.findById(commentDto.getId());
-            if (comment.isPresent()) {
-                comments.add(comment.get());
-            }
+            comment.ifPresent(comments::add);
         }
         return comments;
     }
