@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.file.AccessDeniedException;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -43,7 +44,7 @@ public class TaskServiceImpl implements TaskService {
         User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         List<Task> tasksList = user.getCreatedTask();
         for (Task usersTask : tasksList) {
-            if (taskId == usersTask.getId()) {
+            if (Objects.equals(taskId, usersTask.getId())) {
                 if (task.getExecutor() != null) {
                     usersTask.setExecutor(task.getExecutor());
                 }
@@ -70,7 +71,7 @@ public class TaskServiceImpl implements TaskService {
         User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         List<Task> tasks = user.getCreatedTask();
         for (Task task : tasks) {
-            if (taskId == task.getId()) {
+            if (Objects.equals(taskId, task.getId())) {
                 user.getCreatedTask().remove(task);
                 userRepository.save(user);
                 return;

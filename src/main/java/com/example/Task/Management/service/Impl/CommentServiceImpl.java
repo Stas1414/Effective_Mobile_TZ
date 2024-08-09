@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.file.AccessDeniedException;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -56,7 +57,7 @@ public class CommentServiceImpl implements CommentService {
     public void deleteComment(Long commentId) throws AccessDeniedException {
         User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         for (Comment comment : user.getComments()) {
-            if (comment.getId() == commentId) {
+            if (Objects.equals(comment.getId(), commentId)) {
                 user.getComments().remove(commentId);
                 return;
             } else {
