@@ -18,8 +18,6 @@ public class MappingComment {
     private MappingUser mappingUser;
 
 
-
-
     @Autowired
     public MappingComment(CommentRepository commentRepository, MappingUser mappingUser) {
         this.commentRepository = commentRepository;

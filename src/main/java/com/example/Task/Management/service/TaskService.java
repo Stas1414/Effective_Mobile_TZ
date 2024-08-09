@@ -7,7 +7,7 @@ import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 public interface TaskService {
-    Task createTask(Task task);
+    void createTask(Task task);
 
     void updateTask(Long taskId, Task task) throws AccessDeniedException;
 

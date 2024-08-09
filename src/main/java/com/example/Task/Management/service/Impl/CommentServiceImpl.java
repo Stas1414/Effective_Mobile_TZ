@@ -70,11 +70,10 @@ public class CommentServiceImpl implements CommentService {
     public void updateComment(Long commentId, String content) throws AccessDeniedException {
         User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         for (Comment comment : user.getComments()) {
-            if(comment.getId() == commentId) {
+            if (comment.getId() == commentId) {
                 comment.setContent(content);
                 return;
-            }
-            else {
+            } else {
                 throw new AccessDeniedException("You cant update this task");
             }
         }

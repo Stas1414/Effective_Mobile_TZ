@@ -11,7 +11,7 @@ import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/comment")
+@RequestMapping("/api/comments")
 public class CommentController {
 
     private CommentServiceImpl commentService;

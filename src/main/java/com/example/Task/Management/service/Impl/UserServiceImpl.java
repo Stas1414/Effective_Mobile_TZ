@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,10 +45,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void changeStatus(Long taskId, String status) {
-        Task task = taskRepository.findById(taskId).orElseThrow(() -> new NullPointerException("The user was not founded"));
-        task.setStatus(status);
-        taskRepository.save(task);
+    public void changeStatus(Long taskId, String status) throws AccessDeniedException {
+        Task usersTask = taskRepository.findById(taskId).orElseThrow(() -> new NullPointerException("The task was not founded"));
+        User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        for (Task task : user.getTasksForImplementation()) {
+            if (usersTask.getId() == task.getId()) {
+                task.setStatus(status);
+                taskRepository.save(task);
+            } else {
+                throw new AccessDeniedException("You cant change status");
+            }
+        }
     }
 
     @Override
