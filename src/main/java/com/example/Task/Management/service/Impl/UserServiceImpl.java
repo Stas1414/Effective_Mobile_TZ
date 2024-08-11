@@ -9,6 +9,7 @@ import com.example.Task.Management.reposiroty.UserRepository;
 import com.example.Task.Management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,6 +70,12 @@ public class UserServiceImpl implements UserService {
     public List<TaskDto> getAllTasksForImplementation() {
         User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         return mapToList(user.getTasksForImplementation());
+    }
+
+    @Override
+    public void saveNewUser(User user) {
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        userRepository.save(user);
     }
 
     private List<TaskDto> mapToList(List<Task> usersTasks) {
