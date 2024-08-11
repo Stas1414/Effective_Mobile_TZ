@@ -21,7 +21,7 @@ This repository contains a simple Task Management System developed using Java 17
 - **Spring Boot**
 - **Spring Security**
 - **JWT for Authentication**
-- **PostgreSQL/MySQL** (Choose either based on your environment)
+- **MySQL** 
 - **Docker Compose** for setting up the development environment
 - **OpenAPI & Swagger** for API documentation
 
@@ -30,7 +30,7 @@ This repository contains a simple Task Management System developed using Java 17
 - **Java 17+**
 - **Maven**
 - **Docker & Docker Compose**
-- **PostgreSQL/MySQL** (Ensure the database is set up and running)
+- **MySQL**
 
 ## Installation & Setup
 
